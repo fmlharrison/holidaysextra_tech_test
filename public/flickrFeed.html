@@ -8,8 +8,7 @@
 
   </head>
   <body>
-    <div class="feed">
-      <ul id="photo-stream"></ul>
+    <div id="feed">
     </div>
 
     <script>
@@ -21,7 +20,10 @@
       });
 
       function jsonFlickrFeed(json) {
-        console.log(json.items);
+        $.each(json.items, function(i, item) {
+          console.log(item.media.m);
+          $("<img />").attr("src", item.media.m).appendTo("#feed");
+        });
       };
 
     </script>
