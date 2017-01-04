@@ -9,6 +9,7 @@
   </head>
   <body>
     <div id="feed">
+
     </div>
 
     <script>
@@ -21,10 +22,35 @@
 
       function jsonFlickrFeed(json) {
         $.each(json.items, function(i, item) {
-          console.log(item.media.m);
-          $("<img />").attr("src", item.media.m).appendTo("#feed");
+
+          var author = item.author.split(/[""]/)[1];
+
+          var container = $("<div>", {'id': 'container'});
+
+          var image = $("<img />", {
+            'src': item.media.m,
+            'id': 'image'
+          }).appendTo(container);
+
+          var title = $("<a>", {
+            'href': item.link,
+            'id': 'title',
+            'text': item.title
+          }).appendTo(container);
+
+          var author = $("<a>", {
+            'id': 'author',
+            'href': "https://www.flickr.com/people/" + item.author_id,
+            'text': author
+          }).appendTo(container);
+
+
+          $(container).appendTo('#feed');
         });
       };
+
+
+
 
     </script>
   </body>
