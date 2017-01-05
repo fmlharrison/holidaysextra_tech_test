@@ -25,3 +25,15 @@ body {
 #title {
   font-size: 18px;
 }
+
+@media (max-width: 1199px) {
+  #post:nth-child(3n+1) {
+    clear: left;
+  }
+}
+
+@media (max-width: 991px) {
+  #post:nth-child(2n+1) {
+    clear: left;
+  }
+}
