@@ -1,0 +1,27 @@
+body {
+  padding-top: 70px;
+}
+
+#box {
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+#post {
+  padding: 15px;
+}
+
+#post:nth-child(4n+1) {
+  clear: left;
+}
+
+#header {
+  text-align: center;
+}
+
+#image {
+  padding: 15px 0px;
+}
+
+#title {
+  font-size: 18px;
+}
