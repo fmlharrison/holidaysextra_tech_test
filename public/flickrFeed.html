@@ -4,15 +4,31 @@
     <meta charset="utf-8">
     <title>Flickr Feed API</title>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="jquery-3.1.1.min.js"></script>
 
   </head>
   <body>
-    <div id="feed">
+    <div class="container" id="feed">
+
+      <div class="row" id="row">
+
+      </div>
 
     </div>
 
+    <script type="text/html" id="template">
+      <div class="col-lg-4" id="post">
+        <img class="col-lg-12" id="image" src=<%= imageLink %> />
+        <p class="col-lg-12" id="headline"><a href=<%= titleLink %> id="title"><%= title %></a> by <a href=<%= authorLink %> id="author"><%= authorName %></a></p>
+        <p class="col-lg-12" id="tags">Tags: <%= tags %></p>
+      </div>
+    </script>
+
     <script>
+
+      var postTemplate = _.template($("#template").html());
 
       $.ajax({
         type: "GET",
@@ -23,31 +39,64 @@
       function jsonFlickrFeed(json) {
         $.each(json.items, function(i, item) {
 
-          var author = item.author.split(/[""]/)[1];
+          const imageURL = item.media.m;
+          const imagePage = item.link;
+          const imageTitle = (item.title == " " ? "Untitled" : item.title);
+          const imageAuthor = createAuthor(item.author);
+          const authorURL = "https://www.flickr.com/people/" + item.author_id;
+          const imageTags = splitTags(item.tags);
 
-          var container = $("<div>", {'id': 'container'});
+          var postValues = {
+            imageLink: imageURL,
+            titleLink: imagePage,
+            title: imageTitle,
+            authorLink: authorURL,
+            authorName: imageAuthor,
+            tags: imageTags
+          }
 
-          var image = $("<img />", {
-            'src': item.media.m,
-            'id': 'image'
-          }).appendTo(container);
-
-          var title = $("<a>", {
-            'href': item.link,
-            'id': 'title',
-            'text': item.title
-          }).appendTo(container);
-
-          var author = $("<a>", {
-            'id': 'author',
-            'href': "https://www.flickr.com/people/" + item.author_id,
-            'text': author
-          }).appendTo(container);
+          $('#row').append(postTemplate(postValues));
 
 
-          $(container).appendTo('#feed');
+          // console.log([imageURL, imageTitle, imageAuthor, authorURL, imageTags]);
+
+          // var author = item.author.split(/[""]/)[1];
+          //
+          // var container = $("<div>", {'id': 'container'});
+          //
+          // var image = $("<img />", {
+          //   'src': item.media.m,
+          //   'id': 'image'
+          // });
+          //
+          // var title = $("<a>", {
+          //   'href': item.link,
+          //   'id': 'title',
+          //   'text': (item.title == " ") ? "Untitled" : item.title
+          // });
+          //
+          // var author = $("<a>", {
+          //   'id': 'author',
+          //   'href': "https://www.flickr.com/people/" + item.author_id,
+          //   'text': author
+          // });
+          //
+          // var tags = $("<p>", {
+          //   'id': 'tags',
+          //   'text': item.tags
+          // });
+          //
+          // $(container).appendTo('#feed');
         });
       };
+
+      function splitTags(tags) {
+        return tags.split(" ").join(", ");
+      };
+
+      function createAuthor(author) {
+        return author.split(/[""]/)[1];
+      }
 
 
 
