@@ -9,6 +9,9 @@
     <script src="jquery-3.1.1.min.js"></script>
 
     <style media="screen">
+      body {
+        padding-top: 70px;
+      }
       #post {
         border: 1px solid red;
         padding: 15px;
@@ -18,12 +21,26 @@
         clear: left;
       }
 
+      #header {
+        text-align: center;
+      }
+
+
+
 
     </style>
 
   </head>
   <body>
     <div class="container" id="feed">
+
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container" id="nav-bar">
+          <div class="col-lg-12" id="header">
+            <h1>Random Flickr Feed</h1>
+          </div>
+        </div>
+      </nav>
 
       <div class="row" id="row">
 
