@@ -26,6 +26,15 @@ body {
   font-size: 18px;
 }
 
+#scroller {
+  width: 220px;
+  margin-left: -110px;
+  position: fixed;
+  bottom: 0%;
+  left: 50%;
+  background-color: #f8f8f8;
+}
+
 @media (max-width: 1199px) {
   #post:nth-child(3n+1) {
     clear: left;
