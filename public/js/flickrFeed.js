@@ -10,10 +10,9 @@ function jsonFlickrFeed(json) {
   var links = $.map($("img#image"), function(obj, i) { return obj.currentSrc; });
 
   $.each(json.items, function(i, item) {
-    console.log($.inArray(item.media.m, links) !== -1);
-    if ($.inArray(item.media.m, links) !== -1) {
-      return;
-    } else {
+    // if ($.inArray(item.media.m, links) !== -1) {
+    //   return;
+    // } else {
     const imageURL = item.media.m;
     const imagePage = item.link;
     const imageTitle = makeTitle(item.title);
@@ -31,7 +30,7 @@ function jsonFlickrFeed(json) {
     };
 
     $('#row').append(postTemplate(postValues));
-    }
+    // }
   });
 }
 
@@ -57,7 +56,6 @@ function yHandler() {
   const yOffset = window.pageYOffset;
   const y = yOffset + window.innerHeight;
   if (y >= contentHeight) {
-    console.log(1);
     $.ajax({
       type: "GET",
       dataType: "jsonp",
